@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name</title>
+    <style>
+        :root {
+            --bg-color: #fffef7;
+            --text-color: #444;
+            --heading-color: #333;
+            --border-color: #ddd;
+            --link-color: #8b4513;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --heading-color: #ffffff;
+            --border-color: #444;
+            --link-color: #d4a574;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            min-height: 100vh;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .header-controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            margin-bottom: 10px;
+            font-family: "Helvetica", Arial, sans-serif;
+            font-size: 1.1em;
+        }
+        
+        .control-link {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--link-color);
+            text-decoration: none;
+            padding: 0;
+            font-size: 1em;
+        }
+        
+        .control-link:hover {
+            text-decoration: underline;
+        }
+        
+        .lang-toggle .control-link:not(:last-child)::after {
+            content: " | ";
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        .left-column {
+            text-align: left;
+            padding-top: 20px;
+        }
+        
+        .right-column {
+            padding-top: 20px;
+        }
+        
+        h1 {
+            font-family: "Helvetica", Arial, sans-serif;
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: var(--heading-color);
+        }
+        
+        h2 {
+            font-family: "Helvetica", Arial, sans-serif;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--heading-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+        
+        p, li {
+            font-family: "Arial", sans-serif;
+            font-size: 1em;
+            line-height: 1.5;
+            color: var(--text-color);
+            margin-bottom: 12px;
+        }
+        
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+        
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+
+        .lang-fr { display: none; }
+        [data-lang="fr"] .lang-en { display: none; }
+        [data-lang="fr"] .lang-fr { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-column">
+            <h1>habbie dem <br><span style="font-size: 0.8em;">[habi dɛm]</span></h1>
+            <div class="profile-img"><img class="profile-img" src="zanmang_loopy.png"></div>
+            
+            <ul>
+                <li class="lang-en">📧 <a href="mailto:habbie.dem@mail.utoronto.ca">Email</li>
+                <li class="lang-fr">📧 <a href="mailto:habbie.dem@mail.utoronto.ca">Courriel</a></li>
+                
+                <li class="lang-en">💼 <a href="https://linkedin.com/in/habbiedem">LinkedIn</a></li>
+                <li class="lang-fr">💼 <a href="https://linkedin.com/in/habbiedem">LinkedIn</a></li>
+                
+                <li class="lang-en">🐙 <a href="https://github.com/habbie321">GitHub</a></li>
+                <li class="lang-fr">🐙 <a href="https://github.com/habbie321">GitHub</a></li>
+            </ul>
+        </div>
+        
+        <div class="right-column">
+            <div class="header-controls">
+                <button class="control-link" id="theme-btn">
+                    <span class="lang-en">light mode</span>
+                    <span class="lang-fr">mode clair</span>
+                </button>
+                <div class="lang-toggle">
+                    <button class="control-link" id="lang-en">en</button>
+                    <button class="control-link" id="lang-fr">fr</button>
+                </div>
+            </div>
+            
+            <h2 class="lang-en" style="text-align: center; margin: auto; position: relative; top: 50%; transform: translateY(-50%); border: none;"> work in progress </h2>
+            <h2 class="lang-fr" style="text-align: center; margin: auto; position: relative; top: 50%; transform: translateY(-50%); border: none;"> en cours de développement </h2>
+        </div>
+    </div>
+
+    <script>
+        const themeBtn = document.getElementById('theme-btn');
+        const langEnBtn = document.getElementById('lang-en');
+        const langFrBtn = document.getElementById('lang-fr');
+
+        themeBtn.addEventListener('click', toggleTheme);
+        langEnBtn.addEventListener('click', () => setLang('en'));
+        langFrBtn.addEventListener('click', () => setLang('fr'));
+
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.getAttribute('data-theme') === 'dark';
+            const isFR = body.getAttribute('data-lang') === 'fr';
+            body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    
+            if (isFR) {
+                themeBtn.textContent = isDark ? 'mode clair' : 'mode sombre';
+            } else {
+                themeBtn.textContent = isDark ? 'light mode' : 'dark mode';
+            }
+        }
+
+        function setLang(lang) {
+            document.body.setAttribute('data-lang', lang);
+        }
+
+        // Initialize
+        document.body.setAttribute('data-lang', 'en');
+    </script>
+</body>
+</html>
