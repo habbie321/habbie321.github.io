@@ -211,12 +211,13 @@
         }
 
         function setLang(lang) {
-            document.body.style.opacity = '0';
-    
-            setTimeout(() => {
-                document.body.setAttribute('data-lang', lang);
-                document.body.style.opacity = '1';
-            }, 200);
+            if (document.body.getAttribute('data-lang') != lang) {
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.setAttribute('data-lang', lang);
+                    document.body.style.opacity = '1';
+                }, 200);
+            }
         }
 
         // Initialize
